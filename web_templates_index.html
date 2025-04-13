@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fork Sync Automation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fork Sync Automation</h1>
+    <button id="start-sync">Start Sync</button>
+    <h3>Status:</h3>
+    <pre id="status">Not started</pre>
+
+    <script>
+        async function startSync() {
+            const response = await fetch('/start-sync', { method: 'POST' });
+            const data = await response.json();
+            alert(data.message);
+        }
+
+        async function checkStatus() {
+            const response = await fetch('/sync-status');
+            const data = await response.json();
+            document.getElementById('status').innerText = JSON.stringify(data, null, 2);
+        }
+
+        document.getElementById('start-sync').addEventListener('click', startSync);
+        setInterval(checkStatus, 2000); // Update status every 2 seconds
+    </script>
+</body>
+</html>

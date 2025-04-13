@@ -1,32 +1,30 @@
-# Manual Sync Process for Forked Repositories
+# Manual Sync Process
 
-This guide describes the manual steps to sync your forked repositories with their upstream sources.
-
-## Prerequisites
-- Git installed on your local machine.
-- GitHub CLI installed (optional for advanced workflows).
-- SSH keys configured for GitHub authentication.
+This document explains the manual process for syncing a forked repository with its upstream source.
 
 ## Steps
-1. Clone the forked repository:
+1. **Add the Upstream Remote**:
    ```bash
-   git clone <fork-repo-url>
+   git remote add upstream https://github.com/upstream-owner/upstream-repo.git
    ```
-2. Configure the upstream repository:
-   ```bash
-   git remote add upstream <original-repo-url>
-   ```
-3. Fetch changes from the upstream repository:
+
+2. **Fetch Changes from Upstream**:
    ```bash
    git fetch upstream
    ```
-4. Merge changes into your fork:
+
+3. **Merge Changes into Your Local Branch**:
    ```bash
    git checkout main
    git merge upstream/main
+   ```
+
+4. **Push Changes to Your Fork**:
+   ```bash
    git push origin main
    ```
 
-Repeat these steps for each of your forked repositories.
-
-For more details, visit [GitHub's Official Guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork).
+## Note
+Follow these steps if conflicts arise:
+- Resolve conflicts manually.
+- Commit the changes.

@@ -1,0 +1,30 @@
+name: Test Environment Setup
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-environment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Dependencies
+        run: |
+          pip install flask requests
+          chmod +x ./scripts/sync-forks.sh
+
+      - name: Run Tests
+        run: |
+          python web/app.py &
+          sleep 10
+          curl -X POST http://localhost:5000/start-sync
